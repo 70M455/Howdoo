@@ -54,8 +54,8 @@ body::after{
 @media(max-width:680px){.nav .right .lk:not(.enq){display:none}}
 
 .hero{position:relative;height:100svh;min-height:620px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
-.hero .bg{position:absolute;inset:0;z-index:0;animation:kb 26s ease-in-out infinite alternate}
-.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.hero .bg{position:absolute;inset:0;z-index:0}
+.hero .bg video,.hero .bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
 .hero .scrim{position:absolute;inset:0;z-index:1;background:
   linear-gradient(180deg,rgba(6,18,27,.55) 0%,rgba(6,18,27,.05) 30%,rgba(6,18,27,.15) 55%,rgba(6,18,27,.92) 100%);}
 @keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14)}}
@@ -150,9 +150,9 @@ body::after{
 .vid-head{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
 .vid-head h2{font-size:clamp(2rem,5vw,4rem);font-weight:300;letter-spacing:-.025em}
 .vid-head p{color:var(--mute);max-width:38ch;font-size:.98rem}
-.vid-grid{max-width:1320px;margin:clamp(34px,4vw,50px) auto 0;display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.vid-grid video{width:100%;border-radius:3px;border:1px solid var(--line);background:#000}
-@media(max-width:780px){.vid-grid{grid-template-columns:1fr}}
+.reel-wrap{max-width:1320px;margin:clamp(34px,4vw,50px) auto 0;position:relative;aspect-ratio:16/9;border-radius:3px;overflow:hidden;border:1px solid var(--line);background:#000}
+.reel{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.reel.active{opacity:1}
 
 .specs{background:var(--panel)}
 .sp-wrap{max-width:1100px;margin:0 auto}
@@ -205,28 +205,28 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 </nav>
 
 <header class="hero">
-  <div class="bg"><img src="https://charter.howdoo.nl/assets/images/gallery01/5caf8f72_original.jpg?v=f1b90d4a" alt="HOWDOO sailing"></div>
+  <div class="bg"><video autoplay muted loop playsinline poster="media/drone-anchorage-wide.jpg"><source src="media/hero-drone.mp4" type="video/mp4"></video></div>
   <div class="scrim"></div>
   <div class="hero-top">
-    <div class="mono">N 38&deg;00' &middot; Mediterranean<br><b>For sale</b></div>
+    <div class="mono">Palma de Mallorca<br><b>For sale &middot; tax not paid</b></div>
     <div class="r mono">Nautitech 40 Open<br><b>Hull #249 &middot; 2024</b></div>
   </div>
   <div class="hero-inner">
-    <h1><span>H</span><span>O</span><span>W</span><span>D</span><span>O</span><span>O</span></h1>
+    <h1 style="font-size:clamp(2.6rem,11vw,10rem)"><span>2</span><span>0</span><span>2</span><span>4&nbsp;</span><span>N</span><span>a</span><span>u</span><span>t</span><span>i</span><span>t</span><span>e</span><span>c</span><span>h&nbsp;</span><span>4</span><span>0&nbsp;</span><span>O</span><span>p</span><span>e</span><span>n</span></h1>
     <div class="hero-row">
       <p class="lede">A near-new performance cruising catamaran, owner-maintained and specified for self-sufficient bluewater life.</p>
-      <div class="price"><small>Asking price</small>&euro; 505.000</div>
+      <div class="price"><small>Asking price &middot; tax not paid</small>&euro; 510.000 <span style="font-size:.52em;color:var(--mute);font-weight:400">/ $ 575.000</span></div>
     </div>
   </div>
 </header>
 
 <div class="marq"><div class="track">
-  <span>2024 Nautitech 40 Open</span><span>Owner's Version</span><span>Bluewater equipped</span><span>B&amp;G full suite</span><span>1452W solar</span><span>Lying Mediterranean</span>
-  <span>2024 Nautitech 40 Open</span><span>Owner's Version</span><span>Bluewater equipped</span><span>B&amp;G full suite</span><span>1452W solar</span><span>Lying Mediterranean</span>
+  <span>2024 Nautitech 40 Open</span><span>Owner's Version</span><span>Bluewater equipped</span><span>B&amp;G full suite</span><span>1452W solar</span><span>Lying Palma de Mallorca</span><span>Tax not paid</span>
+  <span>2024 Nautitech 40 Open</span><span>Owner's Version</span><span>Bluewater equipped</span><span>B&amp;G full suite</span><span>1452W solar</span><span>Lying Palma de Mallorca</span><span>Tax not paid</span>
 </div></div>
 
 <section class="sec statement rv" id="vessel">
-  <div class="kicker">01 &mdash; The vessel</div>
+  <div class="kicker">The vessel</div>
   <h2><b>Built in 2024.</b> <em>Sailed by one family, cared for like a flagship, and ready for the next horizon.</em></h2>
   <div class="stats">
     <div class="st"><div class="v" data-count="2024">2024</div><div class="l">Year delivered</div></div>
@@ -238,33 +238,33 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 
 <section class="sec" style="padding-top:0">
   <div class="feat rv">
-    <div class="ph"><img src="https://charter.howdoo.nl/assets/images/gallery01/cfb64ac8.jpg?v=f1b90d4a" alt="Saloon"><span class="tag">Saloon &middot; open-plan</span></div>
+    <div class="ph"><img src="media/sailing-dusk-nautitech.jpg" alt="Sailing at dusk"><span class="tag">Twin helms &middot; performance</span></div>
     <div class="tx">
-      <div class="ix">/ 02 &mdash; Living</div>
-      <h3>One open horizon, inside and out</h3>
-      <p>The open-plan layout dissolves the line between cockpit and saloon into a single, light-filled living space. Built for long days at anchor and easy life aboard.</p>
-    </div>
-  </div>
-  <div class="feat flip rv">
-    <div class="ph"><img src="media/cabin-owners-wide.jpg" alt="Owner's cabin"><span class="tag">Owner's suite &middot; port hull</span></div>
-    <div class="tx">
-      <div class="ix">/ 03 &mdash; Privacy</div>
-      <h3>The whole hull is yours</h3>
-      <p>The sought-after Owner's Version dedicates the entire port hull to a private suite with desk, generous storage and an en-suite head. A genuine retreat.</p>
-    </div>
-  </div>
-  <div class="feat rv">
-    <div class="ph"><img src="https://charter.howdoo.nl/assets/images/gallery01/1709ca92.jpg?v=f1b90d4a" alt="Sailing"><span class="tag">Twin helms &middot; performance</span></div>
-    <div class="tx">
-      <div class="ix">/ 04 &mdash; Performance</div>
+      <div class="ix">Performance</div>
       <h3>Light, stable, quick on her feet</h3>
       <p>A Marc Lombard hull with twin aft helms delivers stability, speed and direct, exhilarating control. Copper-coated and rigged for serious miles.</p>
     </div>
   </div>
   <div class="feat flip rv">
+    <div class="ph"><img src="media/saloon-cockpit-open.jpg" alt="Cockpit and saloon"><span class="tag">Cockpit &middot; open-plan</span></div>
+    <div class="tx">
+      <div class="ix">Living</div>
+      <h3>One open horizon, inside and out</h3>
+      <p>The open-plan layout dissolves the line between cockpit and saloon into a single, light-filled living space. Built for long days at anchor and easy life aboard.</p>
+    </div>
+  </div>
+  <div class="feat rv">
+    <div class="ph"><img src="media/cabin-owners-wide.jpg" alt="Owner's cabin"><span class="tag">Owner's suite &middot; port hull</span></div>
+    <div class="tx">
+      <div class="ix">Privacy</div>
+      <h3>The whole hull is yours</h3>
+      <p>The sought-after Owner's Version dedicates the entire port hull to a private suite with desk, generous storage and an en-suite head. A genuine retreat.</p>
+    </div>
+  </div>
+  <div class="feat flip rv">
     <div class="ph"><img src="media/bathroom-full.jpg" alt="Bathroom with washing machine"><span class="tag">En-suite &middot; washing machine</span></div>
     <div class="tx">
-      <div class="ix">/ 05 &mdash; Comfort</div>
+      <div class="ix">Comfort</div>
       <h3>Every detail, thought through</h3>
       <p>Full-size shower, washing machine, designer vanity. The bathrooms aboard feel more like a boutique hotel than a boat. Because living aboard should never mean compromising.</p>
     </div>
@@ -272,7 +272,7 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
   <div class="feat rv">
     <div class="ph"><img src="media/office-desk-lamp.jpg" alt="Office desk"><span class="tag">Private office &middot; port hull</span></div>
     <div class="tx">
-      <div class="ix">/ 06 &mdash; Work</div>
+      <div class="ix">Work</div>
       <h3>Your office, wherever you anchor</h3>
       <p>A dedicated desk with reading lamp, storage and natural light. Whether you work remotely or simply need a quiet space, the owner's hull delivers.</p>
     </div>
@@ -285,38 +285,36 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
     <p>A selection of the specification. The complete spec sheet and inventory is available on request.</p>
   </div>
   <div class="eq-grid">
-    <div class="eq-cell"><div class="h"><span>Navigation</span><span class="no">01</span></div><ul><li>3 &times; B&amp;G Zeus 9" plotters</li><li>2 &times; Triton displays, twin helm</li><li>Autopilot &amp; 4G radar</li><li>V100 + H50 VHF &middot; AIS</li></ul></div>
-    <div class="eq-cell"><div class="h"><span>Energy</span><span class="no">02</span></div><ul><li>1452 W flush solar (&times;12)</li><li>864 Ah smart lithium</li><li>Victron Quattro 3000</li><li>Schenker watermaker 60 L/h</li></ul></div>
-    <div class="eq-cell"><div class="h"><span>Sails</span><span class="no">03</span></div><ul><li>63 m&sup2; full-batten main</li><li>28 m&sup2; self-tacking jib</li><li>70 m&sup2; gennaker on furler</li><li>152 m&sup2; Parasailor</li></ul></div>
-    <div class="eq-cell"><div class="h"><span>Comfort</span><span class="no">04</span></div><ul><li>Washing machine &amp; freezer</li><li>Electric heads &middot; cockpit fridge</li><li>230V + USB throughout</li><li>Full cockpit enclosure</li></ul></div>
-    <div class="eq-cell"><div class="h"><span>Safety</span><span class="no">05</span></div><ul><li>EPIRB + 2 &times; MOB1</li><li>Life rafts 6 + 4 pax</li><li>8 &times; 165N lifejackets</li><li>Rescue binoculars</li></ul></div>
-    <div class="eq-cell"><div class="h"><span>Tender</span><span class="no">06</span></div><ul><li>Highfield Classic 310</li><li>Suzuki DF15 outboard</li><li>1000W windlass &middot; 60 m chain</li><li>Davits &middot; mooring kit</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Navigation</span></div><ul><li>3 &times; B&amp;G Zeus 9" plotters</li><li>2 &times; Triton displays, twin helm</li><li>Autopilot &amp; 4G radar</li><li>V100 + H50 VHF &middot; AIS</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Energy</span></div><ul><li>1452 W flush solar (&times;12)</li><li>864 Ah smart lithium</li><li>Victron Quattro 3000</li><li>Schenker watermaker 60 L/h</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Sails</span></div><ul><li>63 m&sup2; full-batten main</li><li>28 m&sup2; self-tacking jib</li><li>70 m&sup2; gennaker on furler</li><li>152 m&sup2; Parasailor</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Comfort</span></div><ul><li>Washing machine &amp; freezer</li><li>2 freshwater electric heads &middot; cockpit fridge</li><li>230V + USB throughout</li><li>Full cockpit enclosure</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Safety</span></div><ul><li>EPIRB + 2 &times; MOB1</li><li>Life rafts 6 + 4 pax</li><li>8 &times; 165N lifejackets</li><li>Rescue binoculars</li></ul></div>
+    <div class="eq-cell"><div class="h"><span>Tender</span></div><ul><li>Highfield Classic 310</li><li>Suzuki DF15 outboard</li><li>1000W windlass &middot; 60 m chain</li><li>Davits &middot; mooring kit</li></ul></div>
   </div>
 </section>
 
 <section class="gal rv" id="gallery">
-  <div class="gh"><div class="kicker">07 &mdash; Aboard</div><h2>Step aboard</h2></div>
+  <div class="gh"><div class="kicker">Aboard</div><h2>Step aboard</h2></div>
   <div class="strip" id="strip">
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/141f130b.jpg?v=f1b90d4a" alt="Exterior"></figure>
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/bb290450.jpg?v=f1b90d4a" alt="Cockpit"></figure>
+    <figure><img src="media/cockpit-helm-2026.jpg" alt="Cockpit and helm station"></figure>
+    <figure><img src="media/saloon-cockpit-open.jpg" alt="Saloon to cockpit"></figure>
+    <figure><img src="media/foredeck-2026.jpg" alt="Foredeck and trampolines"></figure>
     <figure><img src="media/cabin-owners-wide.jpg" alt="Owner's cabin"></figure>
     <figure><img src="media/cabin-bed-candles.jpg" alt="Cabin with candles"></figure>
-    <figure><img src="media/cabin-skylight.jpg" alt="Cabin skylight"></figure>
     <figure><img src="media/hull-corridor.jpg" alt="Hull corridor"></figure>
-    <figure><img src="media/desk-shower-view.jpg" alt="Desk area"></figure>
     <figure><img src="media/office-desk-lamp.jpg" alt="Office desk"></figure>
+    <figure><img src="media/cabin-skylight.jpg" alt="Cabin skylight"></figure>
     <figure><img src="media/bathroom-vanity.jpg" alt="Bathroom vanity"></figure>
     <figure><img src="media/bathroom-full.jpg" alt="Full bathroom"></figure>
     <figure><img src="media/bathroom-washing-machine.jpg" alt="Washing machine"></figure>
-    <figure><img src="media/bathroom-window.jpg" alt="Bathroom with window"></figure>
     <figure><img src="media/head-port.jpg" alt="Head port hull"></figure>
-    <figure><img src="media/head-starboard.jpg" alt="Head starboard hull"></figure>
     <figure><img src="media/hull-entry-cockpit.jpg" alt="Hull entry from cockpit"></figure>
     <figure><img src="media/cabin-bed-front.jpg" alt="Cabin front view"></figure>
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/9a0d4bae.jpg?v=f1b90d4a" alt="Sailing"></figure>
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/ed354ffb.jpg?v=f1b90d4a" alt="At anchor"></figure>
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/de8af852.jpg?v=f1b90d4a" alt="Sunset"></figure>
-    <figure><img src="https://charter.howdoo.nl/assets/images/gallery01/d554626f.jpg?v=f1b90d4a" alt="Exterior detail"></figure>
+    <figure><img src="media/howdoo-sunset-silhouette.jpg" alt="HOWDOO at sunset"></figure>
+    <figure><img src="media/drone-anchorage-wide.jpg" alt="Drone view at anchor"></figure>
+    <figure><img src="media/drone-howdoo-village.jpg" alt="HOWDOO with Mediterranean village"></figure>
+    <figure><img src="media/drone-family-sunset.jpg" alt="Family on deck at sunset"></figure>
   </div>
   <div class="hint">&larr;&rarr; Drag or scroll &middot; tap to enlarge</div>
 </section>
@@ -324,17 +322,23 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 <section class="sec vid rv">
   <div class="vid-head">
     <h2>Walk through</h2>
-    <p>Short video tours of the interior, filmed March 2026.</p>
+    <p>Video tour filmed aboard, March 2026.</p>
   </div>
-  <div class="vid-grid">
-    <video controls preload="metadata" poster="media/hull-entry-cockpit.jpg"><source src="media/walkthrough-1.mp4" type="video/mp4"></video>
-    <video controls preload="metadata" poster="media/office-desk-lamp.jpg"><source src="media/walkthrough-2.mp4" type="video/mp4"></video>
+  <div class="reel-wrap">
+    <video class="reel active" muted playsinline preload="auto"><source src="media/reel-1.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-2.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-3.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-4.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-5.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-6.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-7.mp4" type="video/mp4"></video>
+    <video class="reel" muted playsinline preload="auto"><source src="media/reel-8.mp4" type="video/mp4"></video>
   </div>
 </section>
 
 <section class="sec specs rv">
   <div class="sp-wrap">
-    <div class="kicker">08 &mdash; Specification</div>
+    <div class="kicker">Specification</div>
     <div class="sp-grid">
       <div class="r"><span class="k">Delivered</span><span class="v">April 2024</span></div>
       <div class="r"><span class="k">Hull</span><span class="v">#249</span></div>
@@ -353,11 +357,11 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 </section>
 
 <section class="sec cta" id="enquire">
-  <div class="bg"><img src="https://charter.howdoo.nl/assets/images/gallery01/de8af852.jpg?v=f1b90d4a" alt=""></div>
+  <div class="bg"><img src="media/drone-anchorage-wide.jpg" alt=""></div>
   <div class="cta-inner">
-    <div class="kicker" style="justify-content:center">09 &mdash; Enquire</div>
+    <div class="kicker" style="justify-content:center">Enquire</div>
     <h2>Request the<br><b>full specification</b></h2>
-    <div class="price-tag">Asking &euro; 505.000 &middot; lying Mediterranean</div>
+    <div class="price-tag">&euro; 510.000 / $ 575.000 &middot; tax not paid &middot; Palma de Mallorca</div>
     <form class="form" action="https://formsubmit.co/info@howdoo.nl" method="POST">
       <input type="hidden" name="_subject" value="HOWDOO — full specification requested">
       <input type="hidden" name="_template" value="table">
@@ -408,6 +412,24 @@ const strip=document.getElementById('strip');let dn=0,sx,sl;
 strip.addEventListener('pointerdown',e=>{dn=1;sx=e.pageX;sl=strip.scrollLeft;strip.setPointerCapture(e.pointerId)});
 strip.addEventListener('pointermove',e=>{if(dn)strip.scrollLeft=sl-(e.pageX-sx)});
 strip.addEventListener('pointerup',()=>dn=0);
+
+// Video reel crossfade
+(function(){
+  const clips=document.querySelectorAll('.reel');
+  if(!clips.length)return;
+  let cur=0;
+  function playClip(i){
+    clips.forEach((v,j)=>{v.classList.toggle('active',j===i);if(j===i){v.currentTime=0;v.play().catch(()=>{})}});
+  }
+  clips.forEach(v=>{
+    v.addEventListener('ended',()=>{cur=(cur+1)%clips.length;playClip(cur)});
+  });
+  // Start when reel scrolls into view
+  const rio=new IntersectionObserver(es=>{
+    if(es[0].isIntersecting){playClip(0);rio.disconnect()}
+  },{threshold:.3});
+  rio.observe(document.querySelector('.reel-wrap'));
+})();
 </script>
 </body>
 </html>
