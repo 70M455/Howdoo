@@ -135,16 +135,15 @@ body::after{
 @media(max-width:860px){.eq-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.eq-grid{grid-template-columns:1fr}}
 
-.gal{padding:clamp(70px,9vw,120px) 0}
-.gal .gh{padding:0 clamp(20px,4vw,56px);max-width:1320px;margin:0 auto clamp(34px,4vw,50px)}
+.gal{padding:clamp(70px,9vw,120px) clamp(20px,4vw,56px)}
+.gal .gh{max-width:1320px;margin:0 auto clamp(34px,4vw,50px)}
 .gal .gh h2{font-size:clamp(2rem,5vw,4rem);font-weight:300;letter-spacing:-.025em}
-.gal .strip{display:flex;gap:14px;overflow-x:auto;padding:0 clamp(20px,4vw,56px) 18px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-.gal .strip::-webkit-scrollbar{height:6px}
-.gal .strip::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px}
-.gal .strip figure{flex:0 0 auto;width:min(74vw,560px);scroll-snap-align:center;overflow:hidden;border-radius:3px;cursor:zoom-in}
-.gal .strip img{width:100%;height:64vh;max-height:560px;object-fit:cover;transition:transform 1s}
-.gal .strip figure:hover img{transform:scale(1.04)}
-.gal .hint{padding:14px clamp(20px,4vw,56px) 0;max-width:1320px;margin:0 auto;font-family:'Spline Sans Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.gal-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.gal-grid figure{overflow:hidden;border-radius:3px;cursor:zoom-in;aspect-ratio:16/9}
+.gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s}
+.gal-grid figure:hover img{transform:scale(1.06);filter:brightness(1.1)}
+@media(max-width:960px){.gal-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.gal-grid{grid-template-columns:repeat(2,1fr)}}
 
 .vid{background:var(--deep)}
 .vid-head{max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
@@ -314,13 +313,26 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 
 <section class="gal rv" id="gallery">
   <div class="gh"><div class="kicker">Aboard</div><h2>Step aboard</h2></div>
-  <div class="strip" id="strip">
-    <figure><img src="media/aboard-exterior-1.jpg" alt="HOWDOO exterior"></figure>
-    <figure><img src="media/aboard-exterior-2.jpg" alt="HOWDOO from the dock"></figure>
-    <figure><img src="media/aboard-exterior-3.jpg" alt="HOWDOO bow view"></figure>
-    <figure><img src="media/aboard-night.jpg" alt="HOWDOO at night"></figure>
+  <div class="gal-grid" id="gal-grid">
+    <figure><img src="media/gallery-01.jpg" alt="HOWDOO exterior" loading="lazy"></figure>
+    <figure><img src="media/gallery-02.jpg" alt="Bow and foredeck" loading="lazy"></figure>
+    <figure><img src="media/gallery-03.jpg" alt="Foredeck detail" loading="lazy"></figure>
+    <figure><img src="media/gallery-04.jpg" alt="Cockpit overview" loading="lazy"></figure>
+    <figure><img src="media/gallery-05.jpg" alt="Helm station" loading="lazy"></figure>
+    <figure><img src="media/gallery-06.jpg" alt="Cockpit seating" loading="lazy"></figure>
+    <figure><img src="media/gallery-07.jpg" alt="Saloon entry" loading="lazy"></figure>
+    <figure><img src="media/gallery-08.jpg" alt="Saloon interior" loading="lazy"></figure>
+    <figure><img src="media/gallery-09.jpg" alt="Galley and navigation" loading="lazy"></figure>
+    <figure><img src="media/gallery-10.jpg" alt="Owner's cabin" loading="lazy"></figure>
+    <figure><img src="media/gallery-11.jpg" alt="Cabin detail" loading="lazy"></figure>
+    <figure><img src="media/gallery-12.jpg" alt="Hull corridor" loading="lazy"></figure>
+    <figure><img src="media/gallery-13.jpg" alt="Guest cabin" loading="lazy"></figure>
+    <figure><img src="media/gallery-14.jpg" alt="Bathroom" loading="lazy"></figure>
+    <figure><img src="media/gallery-15.jpg" alt="Engine room" loading="lazy"></figure>
+    <figure><img src="media/gallery-16.jpg" alt="Technical installation" loading="lazy"></figure>
+    <figure><img src="media/gallery-17.jpg" alt="Storage and systems" loading="lazy"></figure>
+    <figure><img src="media/gallery-18.jpg" alt="Sunset aboard" loading="lazy"></figure>
   </div>
-  <div class="hint">&larr;&rarr; Drag or scroll &middot; tap to enlarge</div>
 </section>
 
 <section class="sec specs rv" id="specification">
@@ -391,16 +403,11 @@ const cio=new IntersectionObserver((es)=>es.forEach(e=>{
 document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 
 const lb=document.getElementById('lb'), lbi=lb.querySelector('img');
-document.querySelectorAll('#strip figure img').forEach(img=>img.addEventListener('click',()=>{
+document.querySelectorAll('#gal-grid figure img').forEach(img=>img.addEventListener('click',()=>{
   lbi.src=img.src;lb.classList.add('on');
 }));
 lb.addEventListener('click',()=>lb.classList.remove('on'));
 addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
-
-const strip=document.getElementById('strip');let dn=0,sx,sl;
-strip.addEventListener('pointerdown',e=>{dn=1;sx=e.pageX;sl=strip.scrollLeft;strip.setPointerCapture(e.pointerId)});
-strip.addEventListener('pointermove',e=>{if(dn)strip.scrollLeft=sl-(e.pageX-sx)});
-strip.addEventListener('pointerup',()=>dn=0);
 
 // Video reel crossfade
 (function(){
