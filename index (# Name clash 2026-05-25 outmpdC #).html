@@ -189,6 +189,10 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
 .lb.on{display:flex}
 .lb img{max-width:94vw;max-height:92vh;object-fit:contain}
 .lb .x{position:absolute;top:20px;right:26px;font-size:30px;color:#fff;cursor:pointer;font-family:'Outfit'}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:28px;color:rgba(255,255,255,.7);cursor:pointer;font-family:'Outfit';width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);transition:background .25s,color .25s;user-select:none;z-index:122}
+.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.18);color:#fff}
+.lb-prev{left:clamp(10px,2vw,30px)}
+.lb-next{right:clamp(10px,2vw,30px)}
 </style>
 </head>
 <body>
@@ -244,7 +248,7 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
     <div class="tx">
       <div class="ix">Performance</div>
       <h3>Light, stable, quick on her feet</h3>
-      <p>A Marc Lombard hull with twin aft helms delivers stability, speed and direct, exhilarating control. In calm seas she sails above half the true wind speed at a TWA of 45 degrees. Copper-coated and rigged for serious miles.</p>
+      <p>A Marc Lombard hull with twin aft helms delivers stability, speed and direct, exhilarating control. Copper-coated and rigged for serious miles.</p>
     </div>
   </div>
   <div class="feat flip rv">
@@ -406,12 +410,17 @@ const cio=new IntersectionObserver((es)=>es.forEach(e=>{
 }),{threshold:.6});
 document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 
-const lb=document.getElementById('lb'), lbi=lb.querySelector('img');
-document.querySelectorAll('#gal-grid figure img').forEach(img=>img.addEventListener('click',()=>{
-  lbi.src=img.src;lb.classList.add('on');
-}));
-lb.addEventListener('click',()=>lb.classList.remove('on'));
-addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+const galImgs=Array.from(document.querySelectorAll('#gal-grid figure img'));
+let lbIdx=0;
+function lbShow(i){lbIdx=i;lbi.src=galImgs[i].src;lb.classList.add('on')}
+function lbPrev(){lbShow((lbIdx-1+galImgs.length)%galImgs.length)}
+function lbNext(){lbShow((lbIdx+1)%galImgs.length)}
+galImgs.forEach((img,i)=>img.addEventListener('click',()=>lbShow(i)));
+lb.querySelector('.lb-prev').addEventListener('click',e=>{e.stopPropagation();lbPrev()});
+lb.querySelector('.lb-next').addEventListener('click',e=>{e.stopPropagation();lbNext()});
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('x'))lb.classList.remove('on')});
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')lbPrev();if(e.key==='ArrowRight')lbNext()});
 
 // Video reel crossfade
 (function(){
