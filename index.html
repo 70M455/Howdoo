@@ -478,6 +478,9 @@ addEventListener('keydown',e=>{
     status.className='form-status';
     status.textContent='Sending…';
     btn.disabled=true;
+    const name=(f.name.value||'').trim();
+    f.querySelector('input[name=subject]').value=
+      `2024 Nautitech 40 Open information request${name?` from ${name}`:''}`;
     try{
       const res=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});
       const data=await res.json().catch(()=>({}));
