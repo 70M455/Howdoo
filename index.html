@@ -179,6 +179,10 @@ body::after{
 .form textarea{min-height:96px;resize:vertical}
 .form .send{grid-column:1/-1;border:none;cursor:pointer;background:var(--signal);color:#0a0a0a;font-family:'Spline Sans Mono',monospace;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:13px;padding:18px;border-radius:50px;transition:transform .25s,filter .25s}
 .form .send:hover{transform:translateY(-3px);filter:brightness(1.06)}
+.form .send:disabled{cursor:wait;opacity:.7;transform:none}
+.form .form-status{grid-column:1/-1;margin-top:6px;font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.08em;text-align:center;min-height:1.2em}
+.form .form-status.ok{color:var(--aqua)}
+.form .form-status.err{color:var(--signal)}
 .cta .alt{margin-top:32px;font-size:1.05rem;color:rgba(234,243,244,.85)}
 .cta .alt a{color:var(--ink);font-weight:600;border-bottom:1px solid var(--signal);padding-bottom:2px;transition:color .2s}
 .cta .alt a:hover{color:var(--signal)}
@@ -381,16 +385,16 @@ footer{background:var(--abyss);border-top:1px solid var(--line);padding:30px cla
     <div class="kicker" style="justify-content:center">Enquire</div>
     <h2>Request the<br><b>full specification</b></h2>
     <div class="price-tag">&euro; 510.000 / $ 575.000 &middot; tax not paid &middot; Palma de Mallorca</div>
-    <form class="form" action="https://formsubmit.co/info@howdoo.nl" method="POST">
-      <input type="hidden" name="_subject" value="HOWDOO — full specification requested">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="true">
-      <input type="hidden" name="_autoresponse" value="Thank you for your interest in HOWDOO. We have received your request and will send you the full specification shortly. — Team HOWDOO">
-      <input type="text" name="_honey" style="display:none">
+    <form class="form" id="enq-form" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="f7bdeebc-ac20-4d80-8175-e1e9239d92dc">
+      <input type="hidden" name="subject" value="HOWDOO — full specification requested">
+      <input type="hidden" name="from_name" value="HOWDOO website">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <div><label>Name</label><input type="text" name="name" required placeholder="Your name"></div>
       <div><label>Email</label><input type="email" name="email" required placeholder="you@example.com"></div>
       <div class="full"><label>Message (optional)</label><textarea name="message" placeholder="Anything you would like to know?"></textarea></div>
       <button class="send" type="submit">Request specification &#8594;</button>
+      <div class="form-status" id="form-status" aria-live="polite"></div>
     </form>
     <p class="alt">Or reach us directly &mdash; <a href="mailto:info@howdoo.nl">info@howdoo.nl</a> &middot; <a href="https://wa.me/31688811337" target="_blank" rel="noopener">WhatsApp</a></p>
   </div>
@@ -460,6 +464,37 @@ addEventListener('keydown',e=>{
     const dx=e.changedTouches[0].clientX-x0;
     if(Math.abs(dx)>40)showLb(dx<0?lbIdx+1:lbIdx-1);
     x0=null;
+  });
+})();
+
+// Enquiry form — AJAX submit to Web3Forms
+(function(){
+  const f=document.getElementById('enq-form');
+  if(!f)return;
+  const status=document.getElementById('form-status');
+  const btn=f.querySelector('.send');
+  f.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    status.className='form-status';
+    status.textContent='Sending…';
+    btn.disabled=true;
+    try{
+      const res=await fetch(f.action,{method:'POST',headers:{Accept:'application/json'},body:new FormData(f)});
+      const data=await res.json().catch(()=>({}));
+      if(res.ok&&data.success){
+        status.className='form-status ok';
+        status.textContent='Thanks — we will send you the full specification shortly.';
+        f.reset();
+      }else{
+        status.className='form-status err';
+        status.textContent=(data&&data.message)||'Something went wrong. Please email info@howdoo.nl.';
+      }
+    }catch(err){
+      status.className='form-status err';
+      status.textContent='Network error. Please email info@howdoo.nl.';
+    }finally{
+      btn.disabled=false;
+    }
   });
 })();
 
