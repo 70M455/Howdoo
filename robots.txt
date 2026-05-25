@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://forsale.howdoo.nl/sitemap.xml
